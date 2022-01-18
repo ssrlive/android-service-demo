@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity {
     private Button start;
     private Button stop;
 
+    private Button bindSvc;
+    private Button unbindSvc;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +41,20 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.i("TAG", "stop.setOnClickListener called");
                 stopService(intent);
+            }
+        });
+
+        bindSvc = findViewById(R.id.btnBindSvc);
+        bindSvc.setOnClickListener(new OnClickListener(){
+            @Override
+            public void onClick(View v) {
+            }
+        });
+
+        unbindSvc = findViewById(R.id.btnUnbindSvc);
+        unbindSvc.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
             }
         });
     }
