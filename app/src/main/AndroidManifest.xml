@@ -18,6 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".TestService1"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.svctest.TEST_SERVICE1_ACTION"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

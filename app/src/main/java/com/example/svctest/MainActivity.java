@@ -2,6 +2,7 @@ package com.example.svctest;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,10 +21,15 @@ public class MainActivity extends AppCompatActivity {
         start = findViewById(R.id.btnStart);
         stop = findViewById(R.id.btnStop);
 
+        final Intent intent = new Intent();
+        intent.setPackage(this.getPackageName());
+        intent.setAction("com.example.svctest.TEST_SERVICE1_ACTION");
+
         start.setOnClickListener(new OnClickListener(){
             @Override
             public void onClick(View v) {
                 Log.i("TAG", "start.setOnClickListener called");
+                startService(intent);
             }
         });
 
@@ -31,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.i("TAG", "stop.setOnClickListener called");
+                stopService(intent);
             }
         });
     }
