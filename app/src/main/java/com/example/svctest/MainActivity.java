@@ -8,6 +8,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,5 +61,30 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
             }
         });
+
+        TextView textView = findViewById(R.id.textView);
+        timer = new Timer();
+
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        textView.setText("count = " + count);
+                    }
+                });
+                ++count;
+            }
+        };
+        timer.schedule(timerTask, 1000L, 1000L);
+    }
+
+    private int count = 0;
+    private Timer timer;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
     }
 }
