@@ -26,6 +26,13 @@
             </intent-filter>
         </service>
 
+        <service android:name=".MyService2"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.svctest.MY_SERVICE2_ACTION"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
