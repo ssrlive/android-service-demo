@@ -117,6 +117,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         timer.schedule(timerTask, 1000L, 1000L);
+
+        runIntentService();
     }
 
     private Timer timer;
@@ -125,5 +127,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         timer.cancel();
+    }
+
+    void runIntentService() {
+        String[] params = { "s1", "s2", "s3", };
+        for(String val:params) {
+            _runIntentService(val);
+        }
+    }
+
+    void _runIntentService(String param) {
+        Intent intent = new Intent(getApplicationContext(), TestService3.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("param", param);
+        intent.putExtras(bundle);
+        startService(intent);
     }
 }

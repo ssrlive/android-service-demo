@@ -33,6 +33,13 @@
             </intent-filter>
         </service>
 
+        <service android:name=".TestService3"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.example.svctest.TEST_SERVICE3_ACTION"/>
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>
