@@ -56,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
         start = findViewById(R.id.btnStart);
         stop = findViewById(R.id.btnStop);
 
-        final Intent intent = new Intent();
-        intent.setPackage(this.getPackageName());
-        intent.setAction("com.example.svctest.TEST_SERVICE1_ACTION");
+        final Intent intent = new Intent(getApplicationContext(), TestService1.class);
 
         start.setOnClickListener(new OnClickListener(){
             @Override
