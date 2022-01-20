@@ -13,7 +13,8 @@ import androidx.core.app.NotificationCompat;
 
 public class ChangeToForegroundService {
 
-    static void toForeground(Service service, int iconId, String channelId, int id) {
+    static void toForeground(Service service, Class<?> cls, int iconId, String channelId, int id,
+                             String title, String text) {
         if (Build.VERSION.SDK_INT >= 26) {
             NotificationChannel channel = new NotificationChannel(channelId,
                     "Channel human readable title",
@@ -21,15 +22,15 @@ public class ChangeToForegroundService {
             Object mgr = ((Context)service).getSystemService(Context.NOTIFICATION_SERVICE);
             ((NotificationManager)mgr).createNotificationChannel(channel);
 
-            Intent intent = new Intent(((Context)service), MainActivity.class);
+            Intent intent = new Intent(((Context)service), cls);
             PendingIntent pi = PendingIntent.getActivity(((Context)service), 0, intent, 0);
             Notification notification = new NotificationCompat.Builder(((Context)service), channelId)
                     .setContentIntent(pi)
                     .setAutoCancel(false)
                     .setSmallIcon(iconId)
                     .setTicker("Foreground Service Start")
-                    .setContentTitle("Socket server")
-                    .setContentText("Running...")
+                    .setContentTitle(title)
+                    .setContentText(text)
                     .build();
             service.startForeground(id, notification);
         }

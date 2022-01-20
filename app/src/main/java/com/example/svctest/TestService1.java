@@ -18,7 +18,8 @@ public class TestService1 extends Service {
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "onCreate called");
-        ChangeToForegroundService.toForeground(this, R.mipmap.ic_launcher, "channelId", 1);
+        ChangeToForegroundService.toForeground(this, MainActivity.class,
+                R.mipmap.ic_launcher, "channelId", 1, "Socket server", "Running...");
     }
 
     @Override
