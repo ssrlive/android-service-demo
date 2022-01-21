@@ -1,9 +1,12 @@
 package com.example.svctest;
 
+import static android.widget.Toast.*;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Service;
 import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.Timer;
@@ -117,6 +121,24 @@ public class MainActivity extends AppCompatActivity {
         timer.schedule(timerTask, 1000L, 1000L);
 
         runIntentService();
+
+        Button btnAdd = findViewById(R.id.btnAdd);
+        btnAdd.setOnClickListener(new OnClickListener() {
+            TextView result = findViewById(R.id.txtAddResult);
+            EditText value1 = findViewById(R.id.edtValue1);
+            EditText value2 = findViewById(R.id.edtValue2);
+            @Override
+            public void onClick(View v) {
+                int res = -1;
+                try {
+                    int v1 = Integer.parseInt(value1.getText().toString());
+                    int v2 = Integer.parseInt(value2.getText().toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                result.setText(Integer.toString(res));
+            }
+        });
     }
 
     private Timer timer;
