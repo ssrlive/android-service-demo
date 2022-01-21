@@ -133,12 +133,15 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     int v1 = Integer.parseInt(value1.getText().toString());
                     int v2 = Integer.parseInt(value2.getText().toString());
+                    res = _remoteService.add(v1, v2);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
                 result.setText(Integer.toString(res));
             }
         });
+
+        initRemoteService();
     }
 
     private Timer timer;
@@ -147,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         timer.cancel();
+        releaseRemoteService();
     }
 
     void runIntentService() {
@@ -162,5 +166,37 @@ public class MainActivity extends AppCompatActivity {
         bundle.putString("param", param);
         intent.putExtras(bundle);
         startService(intent);
+    }
+
+    class RemoteServiceConnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            _remoteService = IRemoteService.Stub.asInterface(service);
+            makeText(MainActivity.this, "RemoteService connected", LENGTH_LONG).show();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            _remoteService = null;
+            makeText(MainActivity.this, "RemoteService disconnected", LENGTH_LONG).show();
+        }
+    }
+
+    private IRemoteService _remoteService;
+    private RemoteServiceConnection _remoteConn;
+    Intent _remoteIntent;
+
+    private void initRemoteService() {
+        _remoteConn = new RemoteServiceConnection();
+        _remoteIntent = new Intent(getApplicationContext(), RemoteService.class);
+        // remote service will be killed without startService call when App is hide.
+        startService(_remoteIntent);
+        bindService(_remoteIntent, _remoteConn, Context.BIND_AUTO_CREATE);
+    }
+    private void releaseRemoteService() {
+        // stopService(_remoteIntent);
+        unbindService(_remoteConn);
+        _remoteConn = null;
     }
 }
